@@ -2,7 +2,7 @@
 
 void PushButton_Create(void *objPtr)
 {
-    RSDK_THIS(PushButton);
+    RSDK_THIS(PressStartButton);
     entity->z                  = 160.0f;
     entity->alpha              = 255;
     entity->scale              = 0.15f;
@@ -15,14 +15,14 @@ void PushButton_Create(void *objPtr)
 }
 void PushButton_Main(void *objPtr)
 {
-    RSDK_THIS(PushButton);
+    RSDK_THIS(PressStartButton);
     NewRenderState();
     if (entity->useRenderMatrix)
         SetRenderMatrix(&entity->renderMatrix);
     SetRenderBlendMode(RENDER_BLEND_ALPHA);
 
     switch (entity->state) {
-        case PUSHBUTTON_STATE_UNSELECTED: {
+        case PRESSSTARTBUTTON_STATE_UNSELECTED: {
             SetRenderVertexColor((entity->bgColour >> 16) & 0xFF, (entity->bgColour >> 8) & 0xFF, entity->bgColour & 0xFF);
             RenderImage(entity->x - entity->textWidth, entity->y, entity->z, entity->scale, entity->scale, 64.0, 64.0, 64.0, 128.0, 0.0, 0.0,
                         entity->alpha, entity->symbolsTex);
@@ -34,7 +34,7 @@ void PushButton_Main(void *objPtr)
             RenderText(entity->text, FONT_LABEL, entity->x - entity->xOff, entity->y - entity->yOff, entity->z, entity->textScale, entity->alpha);
             break;
         }
-        case PUSHBUTTON_STATE_SELECTED: {
+        case PRESSSTARTBUTTON_STATE_SELECTED: {
             if (usePhysicalControls) {
                 SetRenderVertexColor(0x00, 0x00, 0x00);
                 RenderImage(entity->x - entity->textWidth, entity->y, entity->z, 1.1 * entity->scale, 1.1 * entity->scale, 64.0, 64.0, 64.0, 128.0,
@@ -55,7 +55,7 @@ void PushButton_Main(void *objPtr)
             RenderText(entity->text, FONT_LABEL, entity->x - entity->xOff, entity->y - entity->yOff, entity->z, entity->textScale, entity->alpha);
             break;
         }
-        case PUSHBUTTON_STATE_FLASHING: {
+        case PRESSSTARTBUTTON_STATE_FLASHING: {
             entity->flashTimer += Engine.deltaTime;
             if (entity->flashTimer > 0.1)
                 entity->flashTimer -= 0.1;
@@ -73,11 +73,11 @@ void PushButton_Main(void *objPtr)
             entity->stateTimer += Engine.deltaTime;
             if (entity->stateTimer > 0.5) {
                 entity->stateTimer = 0.0;
-                entity->state      = PUSHBUTTON_STATE_UNSELECTED;
+                entity->state      = PRESSSTARTBUTTON_STATE_UNSELECTED;
             }
             break;
         }
-        case PUSHBUTTON_STATE_SCALED: {
+        case PRESSSTARTBUTTON_STATE_SCALED: {
             entity->state     = 0;
             entity->xOff      = GetTextWidth(entity->text, FONT_LABEL, entity->scale) * 0.375;
             entity->textWidth = GetTextWidth(entity->text, FONT_LABEL, entity->scale) * 0.375;

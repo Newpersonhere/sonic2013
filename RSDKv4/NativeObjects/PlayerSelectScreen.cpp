@@ -78,25 +78,25 @@ void PlayerSelectScreen_Main(void *objPtr)
                 else {
                     if (inputPress.left) {
                         if (saveGame->knuxUnlocked) {
-                            PlaySfxByName("Menu Move", false);
+                            PlaySfxByName("Menu Move", true);
                             if (--entity->playerID < 0)
                                 entity->playerID = SAVESEL_KNUX;
                         }
                         else if (saveGame->tailsUnlocked) {
-                            PlaySfxByName("Menu Move", false);
+                            PlaySfxByName("Menu Move", true);
                             if (--entity->playerID > 0)
                                 entity->playerID = SAVESEL_TAILS;
                         }
                     }
                     else if (inputPress.right) {
                         if (saveGame->knuxUnlocked) {
-                            PlaySfxByName("Menu Move", false);
+                            PlaySfxByName("Menu Move", true);
 
                             if (++entity->playerID > SAVESEL_KNUX)
                                 entity->playerID = SAVESEL_SONIC;
                         }
                         else if (saveGame->tailsUnlocked) {
-                            PlaySfxByName("Menu Move", false);
+                            PlaySfxByName("Menu Move", true);
 
                             if (++entity->playerID > SAVESEL_TAILS)
                                 entity->playerID = SAVESEL_SONIC;
